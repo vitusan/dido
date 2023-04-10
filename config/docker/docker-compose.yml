@@ -1,0 +1,22 @@
+
+version: "3"
+
+services:
+  mongo-express:
+   image: mongo-express
+   depends_on:
+     - 'mongo'
+   ports:
+     - 8081:8081
+   env_file:
+     - ./env/mongo.env
+
+  mongo:
+    image: mongo
+    restart: always
+    env_file:
+     - ./env/mongo.env
+    ports:
+      - "20000:27017"
+    volumes:
+      - ./:/docker-entrypoint-initdb.d/
